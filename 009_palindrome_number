@@ -1,0 +1,49 @@
+Palindrome Number
+
+Determine whether an integer is a palindrome. Do this without extra space.
+
+Code:
+
+#1. With extra space
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        string s = to_string(x);
+        string t = s;
+        reverse(t.begin(), t.end());
+        return (t == s);
+    }
+};
+
+#2. With O(1) space
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0)
+            return 0;
+        long long r = 0;
+        int input = x;
+        while (x)
+        {
+            r = r * 10 + x % 10;
+            x /= 10;
+        }
+        return (r > INT_MAX) ? 0 : ((int)r == input);
+    }
+};
+
+#3. Revert only half of the number
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0 || (x % 10 == 0 && x != 0))
+            return 0;
+        int r = 0;
+        while (x > r)
+        {
+            r = r * 10 + x % 10;
+            x /= 10;
+        }
+        return (x == r || x==r/10);
+    }
+};
