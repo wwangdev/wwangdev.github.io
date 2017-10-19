@@ -1,0 +1,35 @@
+Roman to Integer
+
+Given a roman numeral, convert it to an integer.
+Input is guaranteed to be within the range from 1 to 3999.
+
+Code:
+
+class Solution {
+    map<char, int> m;
+    void buildMap()
+    {
+        m['I'] = 1;
+        m['V'] = 5;
+        m['X'] = 10;
+        m['L'] = 50;
+        m['C'] = 100;
+        m['D'] = 500;
+        m['M'] = 1000;
+    }
+public:
+    int romanToInt(string s) {
+        buildMap();
+        // to upper case
+        std::transform(s.begin(), s.end(), s.begin(), ::toupper);
+        if (s.empty())
+            return 0;
+        // count reversely of the string
+        int result = m[s[s.size()-1]];
+        for (int i = s.size()-2; i >= 0; --i)
+        {
+            result += (m[s[i]] >= m[s[i+1]]) ? m[s[i]] : -m[s[i]];
+        }
+        return result;
+    }
+};
